@@ -1,0 +1,7 @@
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\bin\Debug\RenjuCheckers.exe
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\bin\Debug\RenjuCheckers.pdb
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\obj\Debug\RenjuCheckers.csproj.AssemblyReference.cache
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\obj\Debug\RenjuCheckers.csproj.SuggestedBindingRedirects.cache
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\obj\Debug\RenjuCheckers.csproj.CoreCompileInputs.cache
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\obj\Debug\RenjuCheckers.exe
+C:\Users\stepa\RiderProjects\RenjuCheckers\RenjuCheckers\obj\Debug\RenjuCheckers.pdb
