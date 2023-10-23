@@ -43,12 +43,14 @@
         <Compile Include="Check.cs" />
         <Compile Include="CheckersRenju.cs" />
         <Compile Include="Desk.cs" />
+        <Compile Include="ExceptionWithMove.cs" />
         <Compile Include="Game.cs" />
         <Compile Include="Input.cs" />
         <Compile Include="Output.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RoleRandomizer.cs" />
+        <Compile Include="UtilitiesMove.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="README.md" />

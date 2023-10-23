@@ -57,7 +57,7 @@ namespace RenjuCheckers
             Console.WriteLine("Готово!");
         }
 
-        public static void GetMove(out int x , out int y, ref int currentMove, Dictionary<int, string> players, Desk desk)
+        public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)
         {
             // здесь игроки делают ход
             Console.WriteLine(players[currentMove] + " ваш ход!");
@@ -73,16 +73,15 @@ namespace RenjuCheckers
                     Check.CheckMove(desk, answerX, answerY);
                     x = Convert.ToInt16(answerX);
                     y = Convert.ToInt16(answerY);
-                    currentMove++;
-                    if (currentMove == 3)
-                    {
-                        currentMove = 1;
-                    }
                     break;
                 }
-                catch
+                catch (ExceptionWithMove e)
                 {
-                    Console.WriteLine("Неккоректно введены данные, повторите попытку");
+                    Console.WriteLine("Данная ячейка уже занята");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Введённые данные неккоректны");
                 }
             }
         }

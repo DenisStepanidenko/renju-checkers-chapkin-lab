@@ -13,13 +13,13 @@ namespace RenjuCheckers
 
         public const int WinningRowSize = (int) CharactericticsOfTheGame.WinningRowSize; // количество подряд идущих фишек для победы
 
-        private Desk _desk = new Desk(DeskSize);
+        private Desk _desk = new Desk(DeskSize); // само поле для игры
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
 
         public CheckersRenju()
         {
+            
         }
-
 
         // основной класс, где будет происходть действия в игре
         public override void Start()
@@ -28,13 +28,40 @@ namespace RenjuCheckers
             Input.GetName(out name1, out name2);
             Input.GetColor(_players, name1, name2);
             Output.ShowRole(_players);
-            Output.ShowDesk(_desk);
             while (true)
             {
-                int x, y;
-                Input.GetMove(out x, out y, ref CurrentMove, _players, _desk);
-                _desk.Update(CurrentMove, x, y);
+                // выводим текущее расположение доски
                 Output.ShowDesk(_desk);
+
+                // инициализация текущих координат
+                int x, y;
+
+                // получение хода текущего игрока
+                Input.GetMove(out x, out y, CurrentMove, _players, _desk);
+
+                // обновление доски после хода текущего игрока
+                _desk.Update(CurrentMove, x, y);
+
+                // проверям победителя
+                if (Check.CheckWinner(CurrentMove, x, y, _desk))
+                {
+                    // если есть победитель
+                    Output.ShowDesk(_desk);
+                    Output.ShowWinner(CurrentMove, _players);
+                    break;
+                }
+
+                // если мы не вышли из цикла - значит текущий игрок не победил
+                // значит нужно проверить - а не ничья ли у нас
+                if (Check.CheckDraw(_desk))
+                {
+                    Output.ShowDesk(_desk);
+                    Output.ShowDraw();
+                    break;
+                }
+                
+                // если ничьи нет, то продолжаем игру, и значит мы должны изменить текущий ход на другого игрока
+                UtilitiesMove.UpdateCurrentMove(ref CurrentMove);
             }
         }
     }

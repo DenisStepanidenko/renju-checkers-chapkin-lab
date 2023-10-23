@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 
@@ -6,21 +8,29 @@ namespace RenjuCheckers
 {
     public class Desk
     {
-        private int
-            filledCount; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
+        private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
         private string[,] matrix; // сама доска, из char (X или Y)
 
         public Desk(int size)
         {
             matrix = new string[size, size]; // инициализация доски
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (var i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (var j = 0; j < matrix.GetLength(1); j++)
                 {
                     matrix[i, j] = " ";
                 }
             }
+        }
+        public int GetFilledCount()
+        {
+            return _filledCount;
+        }
+
+        public string[,] GetMatrix()
+        {
+            return matrix;
         }
 
         public string Show()
@@ -57,44 +67,36 @@ namespace RenjuCheckers
 
         public void Update(int currentMove, int x, int y)
         {
+            _filledCount++; // увеличиваем количество заполненных ячеек на единичку
             matrix[x - 1, y - 1] = ((CharactericticsOfTheGame) currentMove).ToString();
         }
 
-        public void CheckCoord(int x, int y)
+        // получаем диагональ, когда стоим в точке (x;y)
+        public List<string> GetDiagonal(int xNew, int yNew, int xModifyer, int yModifyer)
         {
-            if (matrix[x-1, y-1] != " ")
+            var x = xNew;
+            var y = yNew;
+            List<string> diagonal = new();
+            int a = x, b = y;
+            while ((x >= 0) && (y >= 0) && (x < 15) && (y < 15))
             {
-                // это означает, что по этим координатам уже стоит чья-то фишка
-                throw new Exception();
+                diagonal.Add(matrix[x, y]);
+                x += xModifyer;
+                y += yModifyer;
             }
-        }
-        public void CheckWinner(int currentMove, int x, int y)
-        {
 
-            int hrzCount = 0, vertCount = 0;
+            diagonal.Reverse();
+            x = a + (-xModifyer);
+            y = b + (-yModifyer);
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            while ((x >= 0) && (y >= 0) && (x < matrix.GetLength(0)) && (y < matrix.GetLength(1)))
             {
-                if (matrix[i, y] != " ")
-                {
-                    hrzCount++;
-                }
-                else
-                    hrzCount = 0;
-
-                if (matrix[x, i] == " ")
-                {
-                    vertCount++;
-                }
-                else
-                    vertCount = 0;
-
-                if (hrzCount >= (CheckersRenju.DeskSize) || (vertCount >= CheckersRenju.DeskSize))
-                {
-                    //flag = false;
-                    break;
-                }
+                diagonal.Add(matrix[x, y]);
+                x += (-xModifyer);
+                y += (-yModifyer);
             }
+
+            return diagonal;
         }
     }
 }

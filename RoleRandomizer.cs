@@ -8,7 +8,7 @@ namespace RenjuCheckers
         public static void GetRole(Dictionary<int, string> players, string name1, string name2)
         {
             var rand = new Random();
-            var rNum = rand.Next(1, 3);     
+            var rNum = rand.Next(1, 3);
             if (rNum == 1)
             {
                 players.Add(1, name1);
