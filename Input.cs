@@ -6,6 +6,7 @@ namespace RenjuCheckers
 {
     public class Input
     {
+        // метод, который запрашивает у игроков их никнеймы
         public static void GetName(out string name1, out string name2)
         {
             Console.WriteLine("Для начала игры введите свои никнеймы");
@@ -48,7 +49,8 @@ namespace RenjuCheckers
                 }
             }
         }
-
+        
+        // метод, который выводит сообщение о том, что началось распределение цветов
         public static void GetColor(Dictionary<int, string> players, string name1, string name2)
         {
             Console.WriteLine("\nРаспределяем цвета шашек...");
@@ -57,6 +59,7 @@ namespace RenjuCheckers
             Console.WriteLine("Готово!");
         }
 
+        // метод, который запрашивает у игрока его текущий ход
         public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)
         {
             // здесь игроки делают ход

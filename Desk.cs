@@ -12,6 +12,7 @@ namespace RenjuCheckers
 
         private string[,] matrix; // сама доска, из char (X или Y)
 
+        // конструктор
         public Desk(int size)
         {
             matrix = new string[size, size]; // инициализация доски
@@ -23,20 +24,24 @@ namespace RenjuCheckers
                 }
             }
         }
+        
+        // get для поля _filledCount
         public int GetFilledCount()
         {
             return _filledCount;
         }
-
+        
+        // get для поля matrix
         public string[,] GetMatrix()
         {
             return matrix;
         }
-
+        
+        //  В данном методе мы будем отображать игровое поле ( матрицу )
         public string Show()
         {
-            //  данном методе мы будем отображать доску
-            StringBuilder stringOfMatrix = new StringBuilder();
+            
+            var stringOfMatrix = new StringBuilder();
             // заполним верхнюю строчку
             stringOfMatrix.Append(
                     "  ___1_____2_____3_____4_____5_____6_____7_____8_____9____1 0___1 1___1 2___1 3___1 4___1 5__")
@@ -64,7 +69,9 @@ namespace RenjuCheckers
 
             return stringOfMatrix.ToString();
         }
-
+        
+        
+        // метод, который обновляет матрицу по заданым координатам
         public void Update(int currentMove, int x, int y)
         {
             _filledCount++; // увеличиваем количество заполненных ячеек на единичку

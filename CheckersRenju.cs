@@ -15,7 +15,8 @@ namespace RenjuCheckers
 
         private Desk _desk = new Desk(DeskSize); // само поле для игры
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
-
+        
+        // конструктор
         public CheckersRenju()
         {
             

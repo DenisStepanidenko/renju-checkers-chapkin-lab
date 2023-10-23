@@ -12,6 +12,7 @@ namespace RenjuCheckers
     {
         public static void Main(string[] args)
         {
+            // создание объекта для тестировки игры
             var test = new CheckersRenju();
             test.Start();
         }

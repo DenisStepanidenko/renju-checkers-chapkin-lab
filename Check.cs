@@ -5,6 +5,7 @@ namespace RenjuCheckers
 {
     public class Check
     {
+        // проверка на корректность имени
         public static void CheckName(string s)
         {
             // нужно проверить, не пустое ли имя
@@ -13,7 +14,8 @@ namespace RenjuCheckers
                 throw new Exception();
             }
         }
-
+        
+        // проверка на корректность хода текущего игрока
         public static void CheckMove(Desk desk, string answerX, string answerY)
         {
             int xTheory = Convert.ToInt16(answerX);
@@ -26,7 +28,8 @@ namespace RenjuCheckers
 
             CheckCoord(xTheory, yTheory, desk);
         }
-
+        
+        // метод для проверки координаты ( что по данным координатам не стоит ни чья фишка )
         public static void CheckCoord(int x, int y, Desk desk)
         {
             var matrix = desk.GetMatrix();
@@ -50,7 +53,7 @@ namespace RenjuCheckers
             return false;
         }
 
-
+        // проверка на победителя
         public static bool CheckWinner(int currentMove, int xNew, int yNew, Desk desk)
         {
             var x = xNew - 1;
