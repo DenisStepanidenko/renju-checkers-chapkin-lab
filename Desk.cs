@@ -10,17 +10,17 @@ namespace RenjuCheckers
     {
         private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
-        private string[,] matrix; // сама доска, из char (X или Y)
+        private string[,] _matrix; // сама доска, из char (X или Y)
 
         // конструктор
         public Desk(int size)
         {
-            matrix = new string[size, size]; // инициализация доски
-            for (var i = 0; i < matrix.GetLength(0); i++)
+            _matrix = new string[size, size]; // инициализация доски
+            for (var i = 0; i < _matrix.GetLength(0); i++)
             {
-                for (var j = 0; j < matrix.GetLength(1); j++)
+                for (var j = 0; j < _matrix.GetLength(1); j++)
                 {
-                    matrix[i, j] = " ";
+                    _matrix[i, j] = " ";
                 }
             }
         }
@@ -34,7 +34,7 @@ namespace RenjuCheckers
         // get для поля matrix
         public string[,] GetMatrix()
         {
-            return matrix;
+            return _matrix;
         }
         
         //  В данном методе мы будем отображать игровое поле ( матрицу )
@@ -47,7 +47,7 @@ namespace RenjuCheckers
                     "  ___1_____2_____3_____4_____5_____6_____7_____8_____9____1 0___1 1___1 2___1 3___1 4___1 5__")
                 .Append('\n');
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < _matrix.GetLength(0); i++)
             {
                 // нужно так как начиная с 10 меняются логика одного пробела, чтобы ничего не съехало
                 if (i >= 9)
@@ -59,9 +59,9 @@ namespace RenjuCheckers
                     stringOfMatrix.Append(i + 1 + " |");
                 }
 
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < _matrix.GetLength(1); j++)
                 {
-                    stringOfMatrix.Append("__" + matrix[i, j] + "__|");
+                    stringOfMatrix.Append("__" + _matrix[i, j] + "__|");
                 }
 
                 stringOfMatrix.Append('\n');
@@ -75,7 +75,7 @@ namespace RenjuCheckers
         public void Update(int currentMove, int x, int y)
         {
             _filledCount++; // увеличиваем количество заполненных ячеек на единичку
-            matrix[x - 1, y - 1] = ((CharactericticsOfTheGame) currentMove).ToString();
+            _matrix[x - 1, y - 1] = ((CharactericticsOfTheGame) currentMove).ToString();
         }
 
         // получаем диагональ, когда стоим в точке (x;y)
@@ -87,7 +87,7 @@ namespace RenjuCheckers
             int a = x, b = y;
             while ((x >= 0) && (y >= 0) && (x < 15) && (y < 15))
             {
-                diagonal.Add(matrix[x, y]);
+                diagonal.Add(_matrix[x, y]);
                 x += xModifyer;
                 y += yModifyer;
             }
@@ -96,9 +96,9 @@ namespace RenjuCheckers
             x = a + (-xModifyer);
             y = b + (-yModifyer);
 
-            while ((x >= 0) && (y >= 0) && (x < matrix.GetLength(0)) && (y < matrix.GetLength(1)))
+            while ((x >= 0) && (y >= 0) && (x < _matrix.GetLength(0)) && (y < _matrix.GetLength(1)))
             {
-                diagonal.Add(matrix[x, y]);
+                diagonal.Add(_matrix[x, y]);
                 x += (-xModifyer);
                 y += (-yModifyer);
             }
