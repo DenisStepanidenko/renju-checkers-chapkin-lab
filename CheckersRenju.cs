@@ -16,6 +16,7 @@ namespace RenjuCheckers
         private Desk _desk = new Desk(DeskSize); // само поле для игры
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
         
+        
         // конструктор
         public CheckersRenju()
         {
@@ -25,10 +26,49 @@ namespace RenjuCheckers
         // основной класс, где будет происходть действия в игре
         public override void Start()
         {
-            string name1, name2;
-            Input.GetName(out name1, out name2);
-            Input.GetColor(_players, name1, name2);
-            Output.ShowRole(_players);
+            Console.WindowWidth = 100; // для того, чтобы красиво влезло сообщение
+            // начинаем игру с метода, который предлагает игрокам либо загрузить сохранение, либо начать новую
+            int choice;
+            while (true)
+            {
+                try
+                {
+                    Input.GetNewOrLoad(out choice);
+                    Console.WriteLine();
+                    switch (choice)
+                    {
+                        case 1:
+                        {
+                            // здесь инициализируется новая игра
+                            string name1, name2;
+                            Input.GetName(out name1, out name2);
+                            Input.GetColor(_players, name1, name2);
+                            Output.ShowRole(_players);
+                            break;
+                        }
+                        case 2:
+                        {
+                            DAO.LoadGame(_players, ref CurrentMove, _desk);
+                            break;
+                        }
+                    }
+                    
+                }
+                catch (ExceptionWithSaveGame)
+                {
+                    Console.WriteLine("Упс, кажется вы ещё не сохраняли игру, поэтому сохранение не удалось загрузить!");
+                    Console.WriteLine("------------------------------------------------------------------");
+                    continue;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Произошла непридведенная ошибка при работе с загрузкой сохранения");
+                    Console.WriteLine("------------------------------------------------------------------");
+                    continue;
+                }
+                break;
+            }
+            
             while (true)
             {
                 // выводим текущее расположение доски
@@ -51,7 +91,7 @@ namespace RenjuCheckers
                     Output.ShowWinner(CurrentMove, _players);
                     break;
                 }
-
+                
                 // если мы не вышли из цикла - значит текущий игрок не победил
                 // значит нужно проверить - а не ничья ли у нас
                 if (Check.CheckDraw(_desk))
@@ -61,8 +101,19 @@ namespace RenjuCheckers
                     break;
                 }
                 
+                
                 // если ничьи нет, то продолжаем игру, и значит мы должны изменить текущий ход на другого игрока
-                UtilitiesMove.UpdateCurrentMove(ref CurrentMove);
+                Utilities.UpdateCurrentMove(ref CurrentMove);
+                
+                // пытаемся сохранить игру
+                try
+                {
+                    DAO.SaveGame(_players, CurrentMove, _desk);
+                }
+                catch
+                {
+                    
+                }
             }
         }
     }

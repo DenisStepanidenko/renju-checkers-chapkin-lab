@@ -112,5 +112,15 @@ namespace RenjuCheckers
 
             return false;
         }
+
+
+        public static void CheckChoiceGetOrLoad(string s)
+        {
+            int choice = Convert.ToInt16(s);
+            if (choice < 1 || choice > 2)
+            {
+                throw new ExceptionWithChoiceGetOrLoad();
+            }
+        }
     }
 }

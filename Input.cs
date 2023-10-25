@@ -49,7 +49,6 @@ namespace RenjuCheckers
                 }
             }
         }
-        
         // метод, который выводит сообщение о том, что началось распределение цветов
         public static void GetColor(Dictionary<int, string> players, string name1, string name2)
         {
@@ -59,6 +58,33 @@ namespace RenjuCheckers
             Console.WriteLine("Готово!");
         }
 
+        // метод, который запрашивает у пользователь выбор
+        // начать игру, или же загрузить из файла
+        public static void GetNewOrLoad(out int choice)
+        {
+            Console.WriteLine("Приветствую, игроки!");
+            Console.WriteLine("Хотите загрузить последнюю сохранившуюуся игру или же начать новую?");
+            Console.WriteLine("Введите 1, если хотите начать новую игру, или же 2, если хотите загрузить сохранение");
+            while (true)
+            {
+                try
+                {
+                    var answer = Console.ReadLine();
+                    Check.CheckChoiceGetOrLoad(answer);
+                    choice = Convert.ToInt16(answer);
+                    break;
+                }
+                catch (ExceptionWithChoiceGetOrLoad e)
+                {
+                    Console.WriteLine("Введёная цифра должно быть либо 1, либо 2. Повторите ввод данных, пожалуйста.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Введены неккоректные данные, пожалуйста, повторите ввод данных.");
+                }
+            }
+        }
+        
         // метод, который запрашивает у игрока его текущий ход
         public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)
         {

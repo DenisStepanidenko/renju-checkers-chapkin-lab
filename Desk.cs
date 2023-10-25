@@ -11,7 +11,7 @@ namespace RenjuCheckers
         private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
         private string[,] _matrix; // сама доска, из char (X или Y)
-
+        
         // конструктор
         public Desk(int size)
         {
@@ -23,6 +23,17 @@ namespace RenjuCheckers
                     _matrix[i, j] = " ";
                 }
             }
+        }
+
+        // set для _matrix
+        public void SetMatrix(string[,] matrix)
+        {
+            _matrix = matrix;
+        }
+
+        public void SetFilledCount(int filledCount)
+        {
+            _filledCount = filledCount;
         }
         
         // get для поля _filledCount
