@@ -14,7 +14,7 @@ namespace RenjuCheckers
                 throw new Exception();
             }
         }
-        
+
         // проверка на корректность хода текущего игрока
         public static void CheckMove(Desk desk, string answerX, string answerY)
         {
@@ -28,7 +28,7 @@ namespace RenjuCheckers
 
             CheckCoord(xTheory, yTheory, desk);
         }
-        
+
         // метод для проверки координаты ( что по данным координатам не стоит ни чья фишка )
         public static void CheckCoord(int x, int y, Desk desk)
         {
@@ -120,6 +120,15 @@ namespace RenjuCheckers
             if (choice < 1 || choice > 2)
             {
                 throw new ExceptionWithChoiceGetOrLoad();
+            }
+        }
+
+        public static void CheckLeaderBord(string answer)
+        {
+            int n = Convert.ToInt16(answer);
+            if (n < 1 || n > 2)
+            {
+                throw new ExceptionWithAnswerFromLeaderBord();
             }
         }
     }

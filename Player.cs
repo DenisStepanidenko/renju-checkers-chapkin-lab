@@ -7,15 +7,15 @@ namespace RenjuCheckers
     {
         private string _name;
         private int _victorice;
+
         private int _countOfGame;
 
-        
         // get для поля victorice
         public int GetVictorice()
         {
             return _victorice;
         }
-        
+
         // констурктор
         public Player(string name, int victorice, int countOfGame)
         {
@@ -23,7 +23,7 @@ namespace RenjuCheckers
             _victorice = victorice;
             _countOfGame = countOfGame;
         }
-        
+
         // метод для тестирования
         public override string ToString()
         {

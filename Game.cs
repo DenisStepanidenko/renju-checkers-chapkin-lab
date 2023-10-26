@@ -6,5 +6,4 @@ namespace RenjuCheckers
     {
         public abstract void Start();
     }
-    
 }

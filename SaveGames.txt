@@ -1,19 +1,19 @@
-    X    Y     
+XXXX           
+Y              
+Y              
                
                
                
                
                
                
+         Y     
+          Y    
                
                
                
                
-             X 
-               
-               
-               
-seyejygkjf 1
-ghdfjgf 2
-CurrentMove 2
-filledCount 3
+mfytju6 1
+gdfjfg 2
+CurrentMove 1
+filledCount 8

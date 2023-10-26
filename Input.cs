@@ -49,6 +49,7 @@ namespace RenjuCheckers
                 }
             }
         }
+
         // метод, который выводит сообщение о том, что началось распределение цветов
         public static void GetColor(Dictionary<int, string> players, string name1, string name2)
         {
@@ -84,7 +85,7 @@ namespace RenjuCheckers
                 }
             }
         }
-        
+
         // метод, который запрашивает у игрока его текущий ход
         public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)
         {
@@ -111,6 +112,31 @@ namespace RenjuCheckers
                 catch (Exception e)
                 {
                     Console.WriteLine("Введённые данные неккоректны");
+                }
+            }
+        }
+
+        public static void ShowBord(out int n)
+        {
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Хотите ли увидеть текущий LeaderBord?");
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("1 - да , 2 - нет");
+                    var answer = Console.ReadLine();
+                    Check.CheckLeaderBord(answer);
+                    n = Convert.ToInt16(answer);
+                    break;
+                }
+                catch (ExceptionWithAnswerFromLeaderBord)
+                {
+                    Console.WriteLine("Можно ввести только либо цифру 1, либо 2. Повторите ввод ответа!");
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Неккоректные данные. Повторите ввод!");
                 }
             }
         }

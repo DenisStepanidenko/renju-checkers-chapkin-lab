@@ -15,7 +15,7 @@ namespace RenjuCheckers
                 currentMove = 1;
             }
         }
-        
+
         public static List<string> GetDeskRows(string[,] matrix)
         {
             var rows = new List<string>();
@@ -33,6 +33,5 @@ namespace RenjuCheckers
 
             return rows;
         }
-        
     }
 }

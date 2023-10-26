@@ -16,7 +16,16 @@ namespace RenjuCheckers
 
     public class ExceptionWithSaveGame : Exception
     {
-       // данное исключение говорит о том, что файл с сохранением открылся, но данных там нет
-       // то есть нет сохранённой игры на текущий момент
+        // данное исключение говорит о том, что файл с сохранением открылся, но данных там нет
+        // то есть нет сохранённой игры на текущий момент
+    }
+    public class ExceptionWithLeaderBord : Exception
+    {
+        // данное исключение говорит о том, что файл с leaderbord открылся, но данных там нет
+    }
+    public class ExceptionWithAnswerFromLeaderBord : Exception
+    {
+        // данное исключение говорит о том, что пользователь ввёл не ту цифру, при выборе
+        // показать leaderBord или же нет
     }
 }

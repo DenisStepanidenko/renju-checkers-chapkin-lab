@@ -8,10 +8,11 @@ namespace RenjuCheckers
 {
     public class Desk
     {
-        private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
+        private int
+            _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
         private string[,] _matrix; // сама доска, из char (X или Y)
-        
+
         // конструктор
         public Desk(int size)
         {
@@ -35,23 +36,22 @@ namespace RenjuCheckers
         {
             _filledCount = filledCount;
         }
-        
+
         // get для поля _filledCount
         public int GetFilledCount()
         {
             return _filledCount;
         }
-        
+
         // get для поля matrix
         public string[,] GetMatrix()
         {
             return _matrix;
         }
-        
+
         //  В данном методе мы будем отображать игровое поле ( матрицу )
         public string Show()
         {
-            
             var stringOfMatrix = new StringBuilder();
             // заполним верхнюю строчку
             stringOfMatrix.Append(
@@ -80,8 +80,8 @@ namespace RenjuCheckers
 
             return stringOfMatrix.ToString();
         }
-        
-        
+
+
         // метод, который обновляет матрицу по заданым координатам
         public void Update(int currentMove, int x, int y)
         {
