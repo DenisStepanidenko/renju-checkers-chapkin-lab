@@ -90,6 +90,17 @@ namespace RenjuCheckers
                     // если есть победитель
                     Output.ShowDesk(_desk);
                     Output.ShowWinner(CurrentMove, _players);
+
+                    // обновляем LeaderBord
+                    var winnerName = _players[CurrentMove];
+                    var looserName = CurrentMove == 1 ? _players[2] : _players[1];
+
+                    try
+                    {
+                        DAO.UpdateLeaderBord(winnerName, looserName, true);
+                    }
+                    catch{}
+                    
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
@@ -97,6 +108,8 @@ namespace RenjuCheckers
                         // нужно вывести LeaderBord
                         Output.ShowLeaderBord();
                     }
+
+
                     break;
                 }
 
@@ -106,6 +119,18 @@ namespace RenjuCheckers
                 {
                     Output.ShowDesk(_desk);
                     Output.ShowDraw();
+
+                    // обновляем LeaderBord
+                    var winnerName = _players[1];
+                    var looserName = _players[2];
+                    try
+                    {
+                        DAO.UpdateLeaderBord(winnerName, looserName, false);
+                    }
+                    catch
+                    {
+                    }
+
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
@@ -113,6 +138,7 @@ namespace RenjuCheckers
                         // нужно вывести LeaderBord
                         Output.ShowLeaderBord();
                     }
+
                     break;
                 }
 
@@ -121,13 +147,8 @@ namespace RenjuCheckers
                 Utilities.UpdateCurrentMove(ref CurrentMove);
 
                 // пытаемся сохранить игру
-                try
-                {
-                    DAO.SaveGame(_players, CurrentMove, _desk);
-                }
-                catch
-                {
-                }
+
+                DAO.SaveGame(_players, CurrentMove, _desk);
             }
         }
     }

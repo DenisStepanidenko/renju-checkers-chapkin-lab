@@ -15,7 +15,7 @@ namespace RenjuCheckers
         {
             return _victorice;
         }
-
+        
         // констурктор
         public Player(string name, int victorice, int countOfGame)
         {
@@ -29,6 +29,8 @@ namespace RenjuCheckers
         {
             return _name + " " + _victorice + " " + _countOfGame;
         }
+        
+        
 
         // метод для сравнения по убыванию побед
         public int CompareTo(object o)

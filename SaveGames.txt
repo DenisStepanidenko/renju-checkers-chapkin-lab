@@ -1,19 +1,19 @@
-XXXX           
+XXXX   Y    Y Y
 Y              
-Y              
                
                
                
                
                
                
-         Y     
-          Y    
                
                
                
                
-mfytju6 1
-gdfjfg 2
+               
+               
+               
+java 1
+pop 2
 CurrentMove 1
 filledCount 8
