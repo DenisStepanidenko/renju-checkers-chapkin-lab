@@ -4,7 +4,7 @@
 
 Авторы - *Денис Степаниденко* , *Пак Матвей* :sparkles:
 
-# ***Архитектура*** :large_blue_diamond:
+# ***Архитектура*** :diamond_shape_with_a_dot_inside:
 
 Сделано два уровня - *Presentation Layer* и *Business Layer* (далее будет редактироваться) :soon:
 ![image](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/assets/110686828/9655500f-41b2-45aa-bd07-1760d16ce888)
