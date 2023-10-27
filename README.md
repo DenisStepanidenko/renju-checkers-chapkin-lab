@@ -4,7 +4,7 @@
 
 Авторы - *Денис Степаниденко* , *Пак Матвей* :sparkles:
 
-#***Архитектура*** :gem:
+# ***Архитектура*** :gem:
 
 Сделано два уровня - *Presentation Layer* и *Business Layer* (далее будет редактироваться) :soon:
 ![image](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/assets/110686828/9655500f-41b2-45aa-bd07-1760d16ce888)
@@ -24,7 +24,7 @@
 ### *Методы*
 1) *public override void Start()*. Метод, в котором прописана логика самой игры, порядок вызова методов других классов.
 2) *public CheckersRenju()*. Конструктор данного класса.
-##*public class Check*##
+## *public class Check*
 ### *Методы*
 1) *public static void CheckName(string s)*. Метод, в котором идёт проверка имени пользователя на корректность(имя не может быть пустым).
 2) *public static void CheckMove(Desk desk, string answerX, string answerY)*. Метод, в котором проверяет текущий ход игрока на корректность (проверяется пара чисел x,y).
@@ -99,7 +99,7 @@
 ## *public class RoleRandomizer*
 ### *Методы*
 1) *public static void GetRole(Dictionary<int, string> players, string name1, string name2)*. Метод, в котором рандомно распределяются цвета шашек игроков.
-##*public class Utilities*##
+## *public class Utilities*
 ### *Методы*
 1) *public static void UpdateCurrentMove(ref int currentMove)*. Метод, который обновляет текущий ход( переменная currentMove всегда либо 1, либо 2).
 2) *public static List<string> GetDeskRows(string[,] matrix)*. Метод, который возвращает все строки поля игры( нужна для записи игры в файл).
