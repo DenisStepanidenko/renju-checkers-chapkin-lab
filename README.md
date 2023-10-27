@@ -11,10 +11,10 @@
 
 
 # ***Описание классов***
-## *public abstract class Game*
+## *public abstract class Game* :white_check_mark:
 ### *Методы*
 1) *public abstract void Start()*. Метод, в котором реализована сама логика игры. Так как все игры имеют как минимум общий метод, которые запускает саму игру, то сделать такой уровень абстракции довольно неплохая идея.
-## *public class CheckersRenju : Game*##
+## *public class CheckersRenju : Game*## :white_check_mark:
 ### *Поля*
 1) private Dictionary<int, string> _players = new Dictionary<int, string>(). Словарь, где ключ - 1 или 2, которому сопоставляется имя игрока(1 - играет чёрными шашками, 2- играет белыми шашками).
 2) public const int DeskSize = (int) CharactericticsOfTheGame.DeskSize. Размер доски.
@@ -24,7 +24,7 @@
 ### *Методы*
 1) *public override void Start()*. Метод, в котором прописана логика самой игры, порядок вызова методов других классов.
 2) *public CheckersRenju()*. Конструктор данного класса.
-## *public class Check*
+## *public class Check* :white_check_mark:
 ### *Методы*
 1) *public static void CheckName(string s)*. Метод, в котором идёт проверка имени пользователя на корректность(имя не может быть пустым).
 2) *public static void CheckMove(Desk desk, string answerX, string answerY)*. Метод, в котором проверяет текущий ход игрока на корректность (проверяется пара чисел x,y).
@@ -33,21 +33,21 @@
 5) *public static bool CheckWinner(int currentMove, int xNew, int yNew, Desk desk)*. Метод в котором идёт проверка на победителя
 6) *public static void CheckChoiceGetOrLoad(string s)*. Метод, в котором проверяет правильность ввода данных пользователем для сохранения или загрузки игры.
 7) *public static void CheckLeaderBord(string answer)*. Метод, в котором проверяет правильность ввода данных пользователем для показа LeaderBoard.
-## *public enum CharactericticsOfTheGame*
+## *public enum CharactericticsOfTheGame* :white_check_mark:
 ### *Константы*
 1) *DeskSize = 15* - размер поля для игры
 2) *WinningRowSize = 5* - то сколько нужно подряд собрать шашек, чтобы победить
 3) *X = 1* - символ, который используется для игрока, которые играет чёрными шашками
 4) *Y = 2* - символ, который используется для игрока, который играет белыми шашками
-## *public class ExceptionWithMove : Exception*
+## *public class ExceptionWithMove : Exception* :white_check_mark:
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда игрок сделал неккоректный ход
-## *public class ExceptionWithSaveGame : Exception*
+## *public class ExceptionWithSaveGame : Exception* :white_check_mark:
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда  файл с сохранением - пустой
-## *public class ExceptionWithLeaderBord : Exception*
+## *public class ExceptionWithLeaderBord : Exception* :white_check_mark:
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда файл с leaderBoard'ом - пустой
-## *public class ExceptionWithAnswerFromLeaderBord : Exception*
+## *public class ExceptionWithAnswerFromLeaderBord : Exception* :white_check_mark:
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, пользователь ввёл неккоретные данные при выборе - показаывать ли leaderBoard или же нет
-## *public class DAO*
+## *public class DAO* :white_check_mark:
 ### *Поля*
 1) *private const string PathToSave*. Поле, которое содержит путь к файлу с сохранениями.
 2) *private const string PathToLeaderBord*. Поле, которое содержит путь к файлу с LeaderBord'ом.
@@ -56,7 +56,7 @@
 2) *public static void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)*. Метод, в котором происходит сохранение текущего состояния игры в файл.
 3) *public static string GetLeaderBord()*. Метод, который читает данные из файла с LeaderBoard'ом.
 4) *public static void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)*. Метод, в котором происходит обновления файла с LeaderBoard'ом.
-## *public class Desk*
+## *public class Desk* :white_check_mark:
 ### *Поля*
 1) *private int _filledCount = 0*. Данное поле отвечает за количество заполненных ячеек на поле игры(нужно для подсчёты быстрого ничьи).
 2) *private string[,] _matrix*. Сама матрица, которая эквивалентна доске в шашках
@@ -69,37 +69,37 @@
 6) *public string Show()*. Метод, который выводит поле игры на экран в человеко-читаемом формате.
 7) *public void Update(int currentMove, int x, int y)*. Метод, который обновляет текущее поле по заданным координатам.
 8) *public List<string> GetDiagonal(int xNew, int yNew, int xModifyer, int yModifyer)*. Метод, который выдает диагонали которые проходят через заданную точку.
-## *public class Input*
+## *public class Input* :white_check_mark:
 ### *Методы*
 1) *public static void GetName(out string name1, out string name2)*. Метод, который уведомляет пользователей ввести свои никнеймы.
 2) *public static void GetColor(Dictionary<int, string> players, string name1, string name2)*. Метод, который уведомляет пользователей, что началось распределение цветов шашек.
 3) *public static void GetNewOrLoad(out int choice)*. Метод, который уведомляет пользователей о начале игры и предлагает выбор - выбрать сохранённую игры или начать новую.
 4) *public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)*. Метод, который уведомляет пользователей сделать текущий ход.
 5) *public static void ShowBord(out int n)*. Метод, который уведомляет пользователей о том, хотят ли они увидеть LeaderBoard
-## *public class Output*
+## *public class Output* :white_check_mark:
 ### *Методы*
 1) *public static void ShowDesk(Desk desk)*. Метод, который выводит поле на экран.
 2) *public static void ShowRole(Dictionary<int, string> players)*. Метод, который выводит игрокам их цвета шашек после распределения.
 3) *public static void ShowWinner(int currentMove, Dictionary<int, string> players)*. Метод, который выводит сообщение о победителе.
 4) *public static void ShowDraw()*. Метод, который выводит сообщение о ничье.
 5) *public static void ShowLeaderBord()*. Метод, который выводит LeaderBoard.
-## *public class Player : IComparable*
+## *public class Player : IComparable* :white_check_mark:
 Данный класс нужен лишь для сортировки игроков в LeaderBoard по убыванию побед.
 ### *Поля*
 1) *private string _name*. Имя игрока.
 2) *private int _victories*. Количество побед.
 3) *private int _countOfGame*. Количество всего игр.
-### *Методы*
+### *Методы* 
 1) *public int GetVictorice()*. Get метод для поля _victories.
 2) *public Player(string name, int victories, int countOfGame)*. Констурктор данного класса.
 3) *public override string ToString()*. Метод, для вывода состояния объекта в текстовом виде.
 4) *public int CompareTo(object o)*. Метод, в котором описана логика сравнения игроков, так чтобы они убывали по количество побед.
-## *internal class Program*
+## *internal class Program* :white_check_mark:
 Класс, в котором создаёт объект класса CheckersRenju и вызывается метод Start()
-## *public class RoleRandomizer*
-### *Методы*
+## *public class RoleRandomizer* :white_check_mark:
+### *Методы* 
 1) *public static void GetRole(Dictionary<int, string> players, string name1, string name2)*. Метод, в котором рандомно распределяются цвета шашек игроков.
-## *public class Utilities*
+## *public class Utilities* :white_check_mark:
 ### *Методы*
 1) *public static void UpdateCurrentMove(ref int currentMove)*. Метод, который обновляет текущий ход( переменная currentMove всегда либо 1, либо 2).
 2) *public static List<string> GetDeskRows(string[,] matrix)*. Метод, который возвращает все строки поля игры( нужна для записи игры в файл).
