@@ -47,7 +47,7 @@
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда файл с leaderBoard'ом - пустой
 ## *[public class ExceptionWithAnswerFromLeaderBord : Exception](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, пользователь ввёл неккоретные данные при выборе - показаывать ли leaderBoard или же нет
-## *[public class DAO](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class DAO](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/DAO.cs)* :white_check_mark:
 ### *Поля*
 1) ***private const string PathToSave***. Поле, которое содержит путь к файлу с сохранениями.
 2) ***private const string PathToLeaderBord***. Поле, которое содержит путь к файлу с LeaderBord'ом.
@@ -56,7 +56,7 @@
 2) ***public static void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)***. Метод, в котором происходит сохранение текущего состояния игры в файл.
 3) ***public static string GetLeaderBord()***. Метод, который читает данные из файла с LeaderBoard'ом.
 4) ***public static void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)***. Метод, в котором происходит обновления файла с LeaderBoard'ом.
-## *[public class Desk](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class Desk](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Desk.cs)* :white_check_mark:
 ### *Поля*
 1) ***private int _filledCount = 0***. Данное поле отвечает за количество заполненных ячеек на поле игры(нужно для подсчёты быстрого ничьи).
 2) ***private string[,] _matrix***. Сама матрица, которая эквивалентна доске в шашках
@@ -69,21 +69,21 @@
 6) ***public string Show()***. Метод, который выводит поле игры на экран в человеко-читаемом формате.
 7) ***public void Update(int currentMove, int x, int y)***. Метод, который обновляет текущее поле по заданным координатам.
 8) ***public List<string> GetDiagonal(int xNew, int yNew, int xModifyer, int yModifyer)***. Метод, который выдает диагонали которые проходят через заданную точку.
-## *[public class Input](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class Input](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Input.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void GetName(out string name1, out string name2)***. Метод, который уведомляет пользователей ввести свои никнеймы.
 2) ***public static void GetColor(Dictionary<int, string> players, string name1, string name2)***. Метод, который уведомляет пользователей, что началось распределение цветов шашек.
 3) ***public static void GetNewOrLoad(out int choice)***. Метод, который уведомляет пользователей о начале игры и предлагает выбор - выбрать сохранённую игры или начать новую.
 4) ***public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)***. Метод, который уведомляет пользователей сделать текущий ход.
 5) ***public static void ShowBord(out int n)***. Метод, который уведомляет пользователей о том, хотят ли они увидеть LeaderBoard
-## *[public class Output](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class Output](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Output.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void ShowDesk(Desk desk)***. Метод, который выводит поле на экран.
 2) ***public static void ShowRole(Dictionary<int, string> players)***. Метод, который выводит игрокам их цвета шашек после распределения.
 3) ***public static void ShowWinner(int currentMove, Dictionary<int, string> players)***. Метод, который выводит сообщение о победителе.
 4) ***public static void ShowDraw()***. Метод, который выводит сообщение о ничье.
 5) ***public static void ShowLeaderBord()***. Метод, который выводит LeaderBoard.
-## *[public class Player : IComparable](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class Player : IComparable](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Player.cs)* :white_check_mark:
 Данный класс нужен лишь для сортировки игроков в LeaderBoard по убыванию побед.
 ### *Поля*
 1) ***private string _name***. Имя игрока.
@@ -94,12 +94,12 @@
 2) ***public Player(string name, int victories, int countOfGame)***. Констурктор данного класса.
 3) ***public override string ToString()***. Метод, для вывода состояния объекта в текстовом виде.
 4) ***public int CompareTo(object o)***. Метод, в котором описана логика сравнения игроков, так чтобы они убывали по количество побед.
-## *[internal class Program](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[internal class Program](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Program.cs)* :white_check_mark:
 Класс, в котором создаёт объект класса CheckersRenju и вызывается метод Start()
-## *[public class RoleRandomizer](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class RoleRandomizer](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/RoleRandomizer.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void GetRole(Dictionary<int, string> players, string name1, string name2)***. Метод, в котором рандомно распределяются цвета шашек игроков.
-## *[public class Utilities](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+## *[public class Utilities](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Utilities.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void UpdateCurrentMove(ref int currentMove)***. Метод, который обновляет текущий ход( переменная currentMove всегда либо 1, либо 2).
 2) ***public static List<string> GetDeskRows(string[,] matrix)***. Метод, который возвращает все строки поля игры( нужна для записи игры в файл).
