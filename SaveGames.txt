@@ -1,4 +1,8 @@
-XXXX   Y    Y Y
+XXXX         Y 
+Y              
+               
+               
+               
 Y              
                
                
@@ -8,12 +12,8 @@ Y
                
                
                
-               
-               
-               
-               
-               
-java 1
-pop 2
+              Y
+werw 1
+hfh 2
 CurrentMove 1
 filledCount 8

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace RenjuCheckers
 {
@@ -11,8 +12,7 @@ namespace RenjuCheckers
         private Dictionary<int, string> _players = new Dictionary<int, string>();
         public const int DeskSize = (int) CharactericticsOfTheGame.DeskSize; // размер доски
 
-        public const int
-            WinningRowSize = (int) CharactericticsOfTheGame.WinningRowSize; // количество подряд идущих фишек для победы
+        public const int WinningRowSize = (int) CharactericticsOfTheGame.WinningRowSize; // количество подряд идущих фишек для победы
 
         private Desk _desk = new Desk(DeskSize); // само поле для игры
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
@@ -99,8 +99,10 @@ namespace RenjuCheckers
                     {
                         DAO.UpdateLeaderBord(winnerName, looserName, true);
                     }
-                    catch{}
-                    
+                    catch
+                    {
+                    }
+
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
@@ -127,9 +129,7 @@ namespace RenjuCheckers
                     {
                         DAO.UpdateLeaderBord(winnerName, looserName, false);
                     }
-                    catch
-                    {
-                    }
+                    catch{}
 
                     int answer;
                     Input.ShowBord(out answer);

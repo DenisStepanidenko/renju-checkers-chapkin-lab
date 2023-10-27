@@ -19,11 +19,11 @@ namespace RenjuCheckers
         public static List<string> GetDeskRows(string[,] matrix)
         {
             var rows = new List<string>();
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (var i = 0; i < matrix.GetLength(0); i++)
             {
                 var row = "";
 
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (var j = 0; j < matrix.GetLength(1); j++)
                 {
                     row += matrix[i, j];
                 }

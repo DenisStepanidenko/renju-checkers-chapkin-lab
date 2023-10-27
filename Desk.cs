@@ -8,8 +8,7 @@ namespace RenjuCheckers
 {
     public class Desk
     {
-        private int
-            _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
+        private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
         private string[,] _matrix; // сама доска, из char (X или Y)
 
@@ -70,7 +69,7 @@ namespace RenjuCheckers
                     stringOfMatrix.Append(i + 1 + " |");
                 }
 
-                for (int j = 0; j < _matrix.GetLength(1); j++)
+                for (var j = 0; j < _matrix.GetLength(1); j++)
                 {
                     stringOfMatrix.Append("__" + _matrix[i, j] + "__|");
                 }

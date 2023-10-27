@@ -10,11 +10,17 @@ namespace RenjuCheckers
     {
         private const string PathToSave = "C:/Users/stepa/RiderProjects/RenjuCheckers/RenjuCheckers/SaveGames.txt";
 
-        private const string PathToLeaderBord =
-            "C:/Users/stepa/RiderProjects/RenjuCheckers/RenjuCheckers/LeaderBord.txt";
+        private const string PathToLeaderBord = "C:/Users/stepa/RiderProjects/RenjuCheckers/RenjuCheckers/LeaderBord.txt";
 
         public static void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)
         {
+            // сначала проверим - есть ли файл с сохранениями
+            // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
+            if (!File.Exists(PathToSave))
+            {
+                File.Create(PathToSave).Close();
+            }
+
             // в данном методе нам нужно распарсить файл txt в данные для нашей игры
             // сначала проверяем, есть ли в файле ( если он открылся) какие-то сохранения
             if (string.IsNullOrWhiteSpace(File.ReadAllText(PathToSave)))
@@ -106,8 +112,17 @@ namespace RenjuCheckers
             return leaderBord.ToString();
         }
 
+        
         public static void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)
         {
+       
+            // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
+            if (!File.Exists(PathToLeaderBord))
+            {
+                File.Create(PathToLeaderBord).Close();
+            }
+            
+            
             var lines = File.ReadAllLines(PathToLeaderBord);
             var allPlayers = new List<Player>();
             var isWinnerInLb = true;
@@ -223,5 +238,7 @@ namespace RenjuCheckers
                 sw.Close();
             }
         }
+        
+     
     }
 }
