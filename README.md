@@ -10,8 +10,8 @@
 ![image](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/assets/110686828/9655500f-41b2-45aa-bd07-1760d16ce888)
 
 
-# ***Описание классов***<br>
-## *public abstract class Game*<br>
+# ***Описание классов***
+## *public abstract class Game*
 ### *Методы*
 1) *public abstract void Start()*. Метод, в котором реализована сама логика игры. Так как все игры имеют как минимум общий метод, которые запускает саму игру, то сделать такой уровень абстракции довольно неплохая идея.
 ## *public class CheckersRenju : Game*##
