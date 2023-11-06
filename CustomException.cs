@@ -31,6 +31,7 @@ namespace RenjuCheckers
         // данное исключение говорит о том, что файл с сохранением открылся, но данных там нет
         // то есть нет сохранённой игры на текущий момент
     }
+
     public class ExceptionWithLeaderBord : Exception
     {
         public override string ToString()
@@ -39,6 +40,7 @@ namespace RenjuCheckers
         }
         // данное исключение говорит о том, что файл с leaderbord открылся, но данных там нет
     }
+
     public class ExceptionWithAnswerFromLeaderBord : Exception
     {
         public override string ToString()

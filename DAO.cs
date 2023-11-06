@@ -18,8 +18,16 @@ namespace RenjuCheckers
             PathToSave = path + "\\SaveGames.txt";
             PathToLeaderBord = path + "\\LeaderBoard.txt";
         }
-
-        public  void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)
+        
+        
+        /// <summary>
+        /// Метод загружает игру из БД
+        /// </summary>
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="currentMove">Текущий ход</param>
+        /// <param name="desk">Объект класса Desk</param>
+        /// <exception cref="ExceptionWithSaveGame">Пробрасываем исключение в Input чтобы там пользователь повторил ввод</exception>
+        public void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)
         {
             // сначала проверим - есть ли файл с сохранениями
             // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
@@ -73,9 +81,16 @@ namespace RenjuCheckers
             int filledCount = Convert.ToInt16(lines[18].Split(' ')[1]);
             desk.SetFilledCount(filledCount);
         }
-
-        // записываем игру в файл
-        public  void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)
+        
+        
+        
+        /// <summary>
+        /// Метод, который сохраняет текущее состояние игры
+        /// </summary>
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="currentMove">Текущий ход</param>
+        /// <param name="desk">Объект класса Desk</param>
+        public void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)
         {
             FileStream fs = null;
             StreamWriter sw = null;
@@ -115,7 +130,12 @@ namespace RenjuCheckers
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Данный метод загружает LeaderBoard из БД
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ExceptionWithLeaderBord">Выбрасываем исключение в Output если файл пустой</exception>
         public string GetLeaderBord()
         {
             if (string.IsNullOrWhiteSpace(File.ReadAllText(PathToLeaderBord)))
@@ -144,7 +164,7 @@ namespace RenjuCheckers
         /// <param name="winnerName"></param>
         /// <param name="looserName"></param>
         /// <param name="winnerExists"></param>
-        public  void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)
+        public void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)
         {
             FileStream fs = null;
             StreamWriter sw = null;

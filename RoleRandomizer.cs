@@ -5,7 +5,12 @@ namespace RenjuCheckers
 {
     public class RoleRandomizer
     {
-        // метод, который с помощью random определяет цвет шашек игроков
+        /// <summary>
+        /// метод, который с помощью random определяет цвет шашек игроков
+        /// </summary>
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="name1">Имя первого игрока</param>
+        /// <param name="name2">Имя второго игрока</param>
         public static void GetRole(Dictionary<int, string> players, string name1, string name2)
         {
             var rand = new Random();

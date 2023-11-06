@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 
@@ -18,7 +17,7 @@ namespace RenjuCheckers
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
         private DAO _dao; // объект класса DAO (нужен для чтения и записи в БД)
 
-        // конструктор
+        // конструктор, создаём в нём сразу объект класса DAO с путём до текущего каталога
         public CheckersRenju(string path)
         {
             _dao = new DAO(path);
@@ -28,8 +27,8 @@ namespace RenjuCheckers
         public override void Start()
         {
             // начинаем игру с выбора пользователем начала - либо загрузить уже создануюю игру либо начать новую
-            Input.LoadOrInitial(_players , ref CurrentMove , _desk , _dao);
-            
+            Input.LoadOrInitial(_players, ref CurrentMove, _desk, _dao);
+
             // код действий самой логики игры
             while (true)
             {
@@ -56,10 +55,10 @@ namespace RenjuCheckers
                     var winnerName = _players[CurrentMove];
                     var looserName = CurrentMove == 1 ? _players[2] : _players[1];
 
-                   // обновляем LeaderBoard
+                    // обновляем LeaderBoard
                     _dao.UpdateLeaderBord(winnerName, looserName, true);
 
-                    
+                    // спрашиваем у пользователя хочет ли он посмотреть LeaderBoard
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
@@ -75,17 +74,18 @@ namespace RenjuCheckers
                 // значит нужно проверить - а не ничья ли у нас
                 if (Check.CheckDraw(_desk))
                 {
+                    // если ничья
                     Output.ShowDesk(_desk);
                     Output.ShowDraw();
 
                     // обновляем LeaderBord
                     var winnerName = _players[1];
                     var looserName = _players[2];
-                    
+
                     // обновляем LeaderBoard
                     _dao.UpdateLeaderBord(winnerName, looserName, false);
 
-
+                    // спрашиваем у пользователя хочет ли он посмотреть LeaderBoard
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)

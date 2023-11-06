@@ -4,9 +4,12 @@ namespace RenjuCheckers
 {
     public class Utilities
     {
-        // метод, который после текущего хода игрока - меняет переменную currentMove
-        // напоминание: 1 - ходит игрок чёрным ( X )
-        // 2 - ходит игрок белыми ( Y )
+        /// <summary>
+        /// метод, который после текущего хода игрока - меняет переменную currentMove
+        /// напоминание: 1 - ходит игрок чёрным ( X )
+        /// 2 - ходит игрок белыми ( Y )
+        /// </summary>
+        /// <param name="currentMove">Текущий ход</param>
         public static void UpdateCurrentMove(ref int currentMove)
         {
             currentMove++;
@@ -15,7 +18,12 @@ namespace RenjuCheckers
                 currentMove = 1;
             }
         }
-
+        
+        /// <summary>
+        /// Метод, который возвращает все строчки матрицы( игрового поля), нужно для удобного записи состояния матрицы в БД
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
         public static List<string> GetDeskRows(string[,] matrix)
         {
             var rows = new List<string>();
@@ -33,7 +41,12 @@ namespace RenjuCheckers
 
             return rows;
         }
-
+        
+        
+        /// <summary>
+        /// Метод, который инициализирует новую игру
+        /// </summary>
+        /// <param name="players"></param>
         public static void InitalGame(Dictionary<int, string> players)
         {
             string name1, name2;

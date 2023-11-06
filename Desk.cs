@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Text;
 
@@ -28,27 +27,30 @@ namespace RenjuCheckers
         {
             _matrix = matrix;
         }
-
+        
+        // set для _filledCount
         public void SetFilledCount(int filledCount)
         {
             _filledCount = filledCount;
         }
 
-        // get для поля _filledCount
+        // get для _filledCount
         public int GetFilledCount()
         {
             return _filledCount;
         }
 
-        // get для поля matrix
+        // get для _matrix
         public string[,] GetMatrix()
         {
             return _matrix;
         }
 
-       
-
-        //  В данном методе мы будем отображать игровое поле ( матрицу )
+        
+        /// <summary>
+        /// В данном методе мы будем отображать игровое поле ( матрицу )
+        /// </summary>
+        /// <returns></returns>
         public string Show()
         {
             var stringOfMatrix = new StringBuilder();
@@ -80,15 +82,27 @@ namespace RenjuCheckers
             return stringOfMatrix.ToString();
         }
 
-
-        // метод, который обновляет матрицу по заданым координатам
+        /// <summary>
+        /// метод, который обновляет матрицу по заданым координатам
+        /// </summary>
+        /// <param name="currentMove">текущий ход игрока( нужен чтобы понять какой символ поставить)</param>
+        /// <param name="x">Координата по x</param>
+        /// <param name="y">Координата по y</param>
         public void Update(int currentMove, int x, int y)
         {
             _filledCount++; // увеличиваем количество заполненных ячеек на единичку
             _matrix[x - 1, y - 1] = ((CharactericticsOfTheGame) currentMove).ToString();
         }
-
-        // получаем диагональ, когда стоим в точке (x;y)
+        
+        
+        /// <summary>
+        /// Данный метод возвращает диагональ из точки (xNew,yNew)
+        /// </summary>
+        /// <param name="xNew">Координата по x</param>
+        /// <param name="yNew">Координата по y</param>
+        /// <param name="xModifyer">Параметр для поиска нужной диагонали</param>
+        /// <param name="yModifyer">Параметр для поиска нужной диагонали</param>
+        /// <returns></returns>
         public List<string> GetDiagonal(int xNew, int yNew, int xModifyer, int yModifyer)
         {
             var x = xNew;

@@ -6,7 +6,11 @@ namespace RenjuCheckers
 {
     public class Input
     {
-        // метод, который запрашивает у игроков их никнеймы
+        /// <summary>
+        /// Данный метод получает от пользователей никнеймы
+        /// </summary>
+        /// <param name="name1">Имя первого игрока</param>
+        /// <param name="name2">Имя второго игрока</param>
         public static void GetName(out string name1, out string name2)
         {
             Console.WriteLine("Для начала игры введите свои никнеймы");
@@ -49,8 +53,13 @@ namespace RenjuCheckers
                 }
             }
         }
-
-        // метод, который выводит сообщение о том, что началось распределение цветов
+        
+        /// <summary>
+        /// Метод, который выводит сообщение о том, что началось распределение цветов
+        /// </summary>
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="name1">Имя первого игрока</param>
+        /// <param name="name2">Имя второго игрока</param>
         public static void GetColor(Dictionary<int, string> players, string name1, string name2)
         {
             Console.WriteLine("\nРаспределяем цвета шашек...");
@@ -58,9 +67,14 @@ namespace RenjuCheckers
             RoleRandomizer.GetRole(players, name1, name2);
             Console.WriteLine("Готово!");
         }
-
-        // метод, который запрашивает у пользователь выбор
-        // начать игру, или же загрузить из файла
+        
+        
+        
+        /// <summary>
+        /// метод, который запрашивает у пользователь выбор
+        /// начать игру, или же загрузить из файла
+        /// </summary>
+        /// <param name="choice">Параметр в который сохраняется выбор</param>
         public static void GetNewOrLoad(out int choice)
         {
             Console.WriteLine("Приветствую, игроки!");
@@ -85,8 +99,16 @@ namespace RenjuCheckers
                 }
             }
         }
-
-        // метод, который запрашивает у игрока его текущий ход
+        
+        
+        /// <summary>
+        /// метод, который запрашивает у игрока его текущий хо
+        /// </summary>
+        /// <param name="x">Координата по x</param>
+        /// <param name="y">Координата по y</param>
+        /// <param name="currentMove">Текущий ход</param>
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="desk">Объект класса Desk</param>
         public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)
         {
             // здесь игроки делают ход
@@ -118,9 +140,8 @@ namespace RenjuCheckers
 
         /// <summary>
         /// Данный метод нужен для того, чтобы спросить у пользователя, нужно ли ему показывать LeaderBoard
-        /// n - параметр ответа, да - 1 , нет - 2
         /// </summary>
-        /// <param name="n"></param>
+        /// <param name="n">n - параметр ответа, да - 1 , нет - 2</param>
         public static void ShowBord(out int n)
         {
             Console.WriteLine("-------------------------------------");
@@ -145,18 +166,16 @@ namespace RenjuCheckers
                 }
             }
         }
-        
-        
+
+
         /// <summary>
         /// Данный метод будет либо загружать, либо создавать новую игру, всё зависит от выбора пользователя
-        /// players - словарь с игроками
-        /// desk - поле для игры(матрица)
         /// </summary>
-        /// <param name="players"></param>
-        /// <param name="currentMove"></param>
-        /// <param name="desk"></param>
-        /// <param name="dao"></param>
-        public static void LoadOrInitial(Dictionary<int, string> players , ref int currentMove, Desk desk , DAO dao)
+        /// <param name="players">Словарь с игроками</param>
+        /// <param name="currentMove">Текущий ход</param>
+        /// <param name="desk">Объект класса Desk</param>
+        /// <param name="dao">Объект класса DAO</param>
+        public static void LoadOrInitial(Dictionary<int, string> players, ref int currentMove, Desk desk, DAO dao)
         {
             Console.WindowWidth = 100; // для того, чтобы красиво влезло сообщение
             // начинаем игру с метода, который предлагает игрокам либо загрузить сохранение, либо начать новую
@@ -195,6 +214,7 @@ namespace RenjuCheckers
                     Console.WriteLine();
                     continue;
                 }
+
                 break;
             }
         }
