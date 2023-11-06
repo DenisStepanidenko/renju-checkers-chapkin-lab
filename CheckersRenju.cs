@@ -1,6 +1,6 @@
-using System;
+
 using System.Collections.Generic;
-using System.IO;
+
 
 namespace RenjuCheckers
 {
@@ -16,60 +16,21 @@ namespace RenjuCheckers
 
         private Desk _desk = new Desk(DeskSize); // само поле для игры
         public int CurrentMove = 1; // текущий ход игрока, если 1 - чёрные, 2 - белые
-
+        private DAO _dao; // объект класса DAO (нужен для чтения и записи в БД)
 
         // конструктор
-        public CheckersRenju()
+        public CheckersRenju(string path)
         {
+            _dao = new DAO(path);
         }
 
         // основной класс, где будет происходть действия в игре
         public override void Start()
         {
-            Console.WindowWidth = 100; // для того, чтобы красиво влезло сообщение
-            // начинаем игру с метода, который предлагает игрокам либо загрузить сохранение, либо начать новую
-            int choice;
-            while (true)
-            {
-                try
-                {
-                    Input.GetNewOrLoad(out choice);
-                    Console.WriteLine();
-                    switch (choice)
-                    {
-                        case 1:
-                        {
-                            // здесь инициализируется новая игра
-                            string name1, name2;
-                            Input.GetName(out name1, out name2);
-                            Input.GetColor(_players, name1, name2);
-                            Output.ShowRole(_players);
-                            break;
-                        }
-                        case 2:
-                        {
-                            DAO.LoadGame(_players, ref CurrentMove, _desk);
-                            break;
-                        }
-                    }
-                }
-                catch (ExceptionWithSaveGame)
-                {
-                    Console.WriteLine(
-                        "Упс, кажется вы ещё не сохраняли игру, поэтому сохранение не удалось загрузить!");
-                    Console.WriteLine("------------------------------------------------------------------");
-                    continue;
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Произошла непридведенная ошибка при работе с загрузкой сохранения");
-                    Console.WriteLine("------------------------------------------------------------------");
-                    continue;
-                }
-
-                break;
-            }
-
+            // начинаем игру с выбора пользователем начала - либо загрузить уже создануюю игру либо начать новую
+            Input.LoadOrInitial(_players , ref CurrentMove , _desk , _dao);
+            
+            // код действий самой логики игры
             while (true)
             {
                 // выводим текущее расположение доски
@@ -95,22 +56,17 @@ namespace RenjuCheckers
                     var winnerName = _players[CurrentMove];
                     var looserName = CurrentMove == 1 ? _players[2] : _players[1];
 
-                    try
-                    {
-                        DAO.UpdateLeaderBord(winnerName, looserName, true);
-                    }
-                    catch
-                    {
-                    }
+                   // обновляем LeaderBoard
+                    _dao.UpdateLeaderBord(winnerName, looserName, true);
 
+                    
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
                     {
                         // нужно вывести LeaderBord
-                        Output.ShowLeaderBord();
+                        Output.ShowLeaderBord(_dao);
                     }
-
 
                     break;
                 }
@@ -125,18 +81,17 @@ namespace RenjuCheckers
                     // обновляем LeaderBord
                     var winnerName = _players[1];
                     var looserName = _players[2];
-                    try
-                    {
-                        DAO.UpdateLeaderBord(winnerName, looserName, false);
-                    }
-                    catch{}
+                    
+                    // обновляем LeaderBoard
+                    _dao.UpdateLeaderBord(winnerName, looserName, false);
+
 
                     int answer;
                     Input.ShowBord(out answer);
                     if (answer == 1)
                     {
                         // нужно вывести LeaderBord
-                        Output.ShowLeaderBord();
+                        Output.ShowLeaderBord(_dao);
                     }
 
                     break;
@@ -147,8 +102,7 @@ namespace RenjuCheckers
                 Utilities.UpdateCurrentMove(ref CurrentMove);
 
                 // пытаемся сохранить игру
-
-                DAO.SaveGame(_players, CurrentMove, _desk);
+                _dao.SaveGame(_players, CurrentMove, _desk);
             }
         }
     }

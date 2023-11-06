@@ -34,16 +34,16 @@ namespace RenjuCheckers
                 "                                     ", "           ");
         }
 
-        public static void ShowLeaderBord()
+        public static void ShowLeaderBord(DAO dao)
         {
             try
             {
-                var leaderBord = DAO.GetLeaderBord();
+                var leaderBord = dao.GetLeaderBord();
                 Console.WriteLine(leaderBord);
             }
-            catch (ExceptionWithLeaderBord)
+            catch (ExceptionWithLeaderBord e)
             {
-                Console.WriteLine("LeaderBord пуст!");
+                Console.WriteLine(e);
             }
             catch(Exception)
             {

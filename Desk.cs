@@ -1,14 +1,12 @@
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 
 namespace RenjuCheckers
 {
     public class Desk
     {
-        private int _filledCount = 0; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
+        private int _filledCount; // показатель того, сколько заполненных ячеек в таблице ( нужно чтобы понять когда ничья)
 
         private string[,] _matrix; // сама доска, из char (X или Y)
 
@@ -47,6 +45,8 @@ namespace RenjuCheckers
         {
             return _matrix;
         }
+
+       
 
         //  В данном методе мы будем отображать игровое поле ( матрицу )
         public string Show()

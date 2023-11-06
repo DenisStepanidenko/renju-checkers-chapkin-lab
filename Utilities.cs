@@ -33,5 +33,13 @@ namespace RenjuCheckers
 
             return rows;
         }
+
+        public static void InitalGame(Dictionary<int, string> players)
+        {
+            string name1, name2;
+            Input.GetName(out name1, out name2);
+            Input.GetColor(players, name1, name2);
+            Output.ShowRole(players);
+        }
     }
 }

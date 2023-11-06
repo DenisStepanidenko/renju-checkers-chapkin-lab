@@ -29,8 +29,7 @@ namespace RenjuCheckers
         {
             return _name + " " + _victories + " " + _countOfGame;
         }
-        
-        
+
 
         // метод для сравнения по убыванию побед
         public int CompareTo(object o)
@@ -40,7 +39,6 @@ namespace RenjuCheckers
             {
                 return -1;
             }
-
             return 1;
         }
     }

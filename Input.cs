@@ -17,7 +17,7 @@ namespace RenjuCheckers
                 try
                 {
                     Console.Write("Игрок 1: ");
-                    string name = Console.ReadLine();
+                    var name = Console.ReadLine();
                     // теперь нам нужно проверить это имя на корректность
                     // неккоректное имя - пустое имя
                     Check.CheckName(name);
@@ -36,7 +36,7 @@ namespace RenjuCheckers
                 try
                 {
                     Console.Write("Игрок 2: ");
-                    string name = Console.ReadLine();
+                    var name = Console.ReadLine();
                     // теперь нам нужно проверить это имя на корректность
                     // неккоректное имя - пустое имя
                     Check.CheckName(name);
@@ -77,9 +77,9 @@ namespace RenjuCheckers
                 }
                 catch (ExceptionWithChoiceGetOrLoad e)
                 {
-                    Console.WriteLine("Введёная цифра должно быть либо 1, либо 2. Повторите ввод данных, пожалуйста.");
+                    Console.WriteLine(e);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Введены неккоректные данные, пожалуйста, повторите ввод данных.");
                 }
@@ -107,15 +107,20 @@ namespace RenjuCheckers
                 }
                 catch (ExceptionWithMove e)
                 {
-                    Console.WriteLine("Данная ячейка уже занята");
+                    Console.WriteLine(e);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Введённые данные неккоректны");
                 }
             }
         }
 
+        /// <summary>
+        /// Данный метод нужен для того, чтобы спросить у пользователя, нужно ли ему показывать LeaderBoard
+        /// n - параметр ответа, да - 1 , нет - 2
+        /// </summary>
+        /// <param name="n"></param>
         public static void ShowBord(out int n)
         {
             Console.WriteLine("-------------------------------------");
@@ -130,14 +135,67 @@ namespace RenjuCheckers
                     n = Convert.ToInt16(answer);
                     break;
                 }
-                catch (ExceptionWithAnswerFromLeaderBord)
+                catch (ExceptionWithAnswerFromLeaderBord e)
                 {
-                    Console.WriteLine("Можно ввести только либо цифру 1, либо 2. Повторите ввод ответа!");
+                    Console.WriteLine(e);
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Неккоректные данные. Повторите ввод!");
                 }
+            }
+        }
+        
+        
+        /// <summary>
+        /// Данный метод будет либо загружать, либо создавать новую игру, всё зависит от выбора пользователя
+        /// players - словарь с игроками
+        /// desk - поле для игры(матрица)
+        /// </summary>
+        /// <param name="players"></param>
+        /// <param name="currentMove"></param>
+        /// <param name="desk"></param>
+        /// <param name="dao"></param>
+        public static void LoadOrInitial(Dictionary<int, string> players , ref int currentMove, Desk desk , DAO dao)
+        {
+            Console.WindowWidth = 100; // для того, чтобы красиво влезло сообщение
+            // начинаем игру с метода, который предлагает игрокам либо загрузить сохранение, либо начать новую
+            int choice;
+            while (true)
+            {
+                try
+                {
+                    GetNewOrLoad(out choice);
+                    Console.WriteLine();
+                    switch (choice)
+                    {
+                        case 1:
+                        {
+                            // здесь инициализируется новая игра
+                            Utilities.InitalGame(players);
+                            break;
+                        }
+                        case 2:
+                        {
+                            // здесь пытаемся загрузить игру
+                            dao.LoadGame(players, ref currentMove, desk);
+                            break;
+                        }
+                    }
+                }
+                catch (ExceptionWithSaveGame e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine();
+                    continue;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Произошла непридведенная ошибка при работе с загрузкой сохранения");
+                    Console.WriteLine();
+                    continue;
+                }
+                break;
             }
         }
     }

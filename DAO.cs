@@ -4,15 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+
 namespace RenjuCheckers
 {
     public class DAO
     {
-        private const string PathToSave = "C:/Users/stepa/RiderProjects/RenjuCheckers/RenjuCheckers/SaveGames.txt";
+        public string PathToSave { get; }
+        public string PathToLeaderBord { get; }
 
-        private const string PathToLeaderBord = "C:/Users/stepa/RiderProjects/RenjuCheckers/RenjuCheckers/LeaderBord.txt";
 
-        public static void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)
+        public DAO(string path)
+        {
+            PathToSave = path + "\\SaveGames.txt";
+            PathToLeaderBord = path + "\\LeaderBoard.txt";
+        }
+
+        public  void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)
         {
             // сначала проверим - есть ли файл с сохранениями
             // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
@@ -68,12 +75,14 @@ namespace RenjuCheckers
         }
 
         // записываем игру в файл
-        public static void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)
+        public  void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)
         {
+            FileStream fs = null;
+            StreamWriter sw = null;
             try
             {
-                FileStream fs = new(PathToSave, FileMode.Create);
-                StreamWriter sw = new(fs, Encoding.Default);
+                fs = new FileStream(PathToSave, FileMode.Create);
+                sw = new StreamWriter(fs, Encoding.Unicode);
                 foreach (var row in Utilities.GetDeskRows(desk.GetMatrix()))
                 {
                     sw.WriteLine(row);
@@ -90,10 +99,24 @@ namespace RenjuCheckers
             }
             catch
             {
+                Console.WriteLine("Произошла непредвиденная ошибка при сохранении игры");
+            }
+            finally
+            {
+                // всё равно нужно закрыть все потоки
+                if (!(sw == null))
+                {
+                    sw.Close();
+                }
+
+                if (!(fs == null))
+                {
+                    fs.Close();
+                }
             }
         }
 
-        public static string GetLeaderBord()
+        public string GetLeaderBord()
         {
             if (string.IsNullOrWhiteSpace(File.ReadAllText(PathToLeaderBord)))
             {
@@ -112,133 +135,149 @@ namespace RenjuCheckers
             return leaderBord.ToString();
         }
 
-        
-        public static void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)
+        /// <summary>
+        /// Данный метод нужен для обновления LeaderBoard при чье-то победе или ничьи
+        /// winnerName - имя победителя
+        /// looserName - имя проигравшего
+        /// winnerExists - параметр, который отвечает за конкретный тип обовления LeaderBoard - либо ничья(false), либо победа(true)
+        /// </summary>
+        /// <param name="winnerName"></param>
+        /// <param name="looserName"></param>
+        /// <param name="winnerExists"></param>
+        public  void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)
         {
-       
-            // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
-            if (!File.Exists(PathToLeaderBord))
+            FileStream fs = null;
+            StreamWriter sw = null;
+            try
             {
-                File.Create(PathToLeaderBord).Close();
+                // сначала проверяем - есть ли такой файл, если нет - то создаём по указанному адресу
+                if (!File.Exists(PathToLeaderBord))
+                {
+                    File.Create(PathToLeaderBord).Close();
+                }
+
+                var lines = File.ReadAllLines(PathToLeaderBord);
+                fs = new FileStream(PathToLeaderBord, FileMode.Create);
+                sw = new StreamWriter(fs, Encoding.Unicode);
+                var allPlayers = new List<Player>();
+                var isWinnerInLb = true;
+                var isLoosingInLb = true;
+                if (winnerExists)
+                {
+                    for (var i = 0; i < lines.Length; i++)
+                    {
+                        var currentPlayer = lines[i].Split(' ');
+                        // 0 - имя
+                        // 1 - победы
+                        // 2 - всего игр
+                        if (currentPlayer[0].Equals(winnerName))
+                        {
+                            isWinnerInLb = false;
+                            allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]) + 1,
+                                Convert.ToInt16(currentPlayer[2]) + 1));
+                        }
+                        else if (currentPlayer[0].Equals(looserName))
+                        {
+                            isLoosingInLb = false;
+                            allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]),
+                                Convert.ToInt16(currentPlayer[2]) + 1));
+                        }
+                        else
+                        {
+                            allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]),
+                                Convert.ToInt16(currentPlayer[2])));
+                        }
+                    }
+
+                    // проверяем, был ли победитель среди считанных игроков
+                    if (isWinnerInLb)
+                    {
+                        // значит победителя нет в leaderBord
+                        allPlayers.Add(new Player(winnerName, 1, 1));
+                    }
+
+                    // проверяем был ли проигравший среди считанных игроков
+                    if (isLoosingInLb)
+                    {
+                        allPlayers.Add(new Player(looserName, 0, 1));
+                    }
+
+
+                    allPlayers.Sort(); // сортируем по количество побед, это возможно сделать, так как Player наследует IComparable
+
+
+                    // теперь записываем обратно в файлик новый отсортированный leaderBord
+
+
+                    foreach (var player in allPlayers)
+                    {
+                        sw.WriteLine(player.ToString());
+                    }
+                }
+                else
+                {
+                    // сюда мы попадаем, если оба игрока сыграли в ничью
+                    for (var i = 0; i < lines.Length; i++)
+                    {
+                        var currentPlayer = lines[i].Split(' ');
+                        // 0 - имя
+                        // 1 - победы
+                        // 2 - всего игр
+                        if (currentPlayer[0].Equals(winnerName))
+                        {
+                            isWinnerInLb = false;
+                            allPlayers.Add(new Player(winnerName, Convert.ToInt16(currentPlayer[1]),
+                                Convert.ToInt16(currentPlayer[2]) + 1));
+                        }
+                        else if (currentPlayer[0].Equals(looserName))
+                        {
+                            isLoosingInLb = false;
+                            allPlayers.Add(new Player(looserName, Convert.ToInt16(currentPlayer[1]),
+                                Convert.ToInt16(currentPlayer[2]) + 1));
+                        }
+                        else
+                        {
+                            allPlayers.Add(new Player(looserName, Convert.ToInt16(currentPlayer[1]),
+                                Convert.ToInt16(currentPlayer[2])));
+                        }
+                    }
+
+                    // проверяем, был ли победитель среди считанных игроков
+                    if (isWinnerInLb)
+                    {
+                        // значит победителя нет в leaderBord
+                        allPlayers.Add(new Player(winnerName, 0, 1));
+                    }
+
+                    // проверяем был ли проигравший среди считанных игроков
+                    if (isLoosingInLb)
+                    {
+                        allPlayers.Add(new Player(looserName, 0, 1));
+                    }
+
+                    foreach (var player in allPlayers)
+                    {
+                        sw.WriteLine(player.ToString());
+                    }
+                }
             }
-            
-            
-            var lines = File.ReadAllLines(PathToLeaderBord);
-            var allPlayers = new List<Player>();
-            var isWinnerInLb = true;
-            var isLoosingInLb = true;
-            if (winnerExists)
+            catch
             {
-                for (var i = 0; i < lines.Length; i++)
-                {
-                    var currentPlayer = lines[i].Split(' ');
-                    // 0 - имя
-                    // 1 - победы
-                    // 2 - всего игр
-                    if (currentPlayer[0].Equals(winnerName))
-                    {
-                        isWinnerInLb = false;
-                        allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]) + 1,
-                            Convert.ToInt16(currentPlayer[2]) + 1));
-                    }
-                    else if (currentPlayer[0].Equals(looserName))
-                    {
-                        isLoosingInLb = false;
-                        allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]),
-                            Convert.ToInt16(currentPlayer[2]) + 1));
-                    }
-                    else
-                    {
-                        allPlayers.Add(new Player(currentPlayer[0], Convert.ToInt16(currentPlayer[1]),
-                            Convert.ToInt16(currentPlayer[2])));
-                    }
-                }
-
-                // проверяем, был ли победитель среди считанных игроков
-                if (isWinnerInLb)
-                {
-                    // значит победителя нет в leaderBord
-                    allPlayers.Add(new Player(winnerName, 1, 1));
-                }
-
-                // проверяем был ли проигравший среди считанных игроков
-                if (isLoosingInLb)
-                {
-                    allPlayers.Add(new Player(looserName, 0, 1));
-                }
-
-
-                allPlayers.Sort(); // сортируем по количество побед, это возможно сделать, так как Player наследует IComparable
-
-
-                // теперь записываем обратно в файлик новый отсортированный leaderBord
-
-                FileStream fs = new(PathToLeaderBord, FileMode.Create);
-                StreamWriter sw = new(fs, Encoding.Default);
-
-                foreach (var player in allPlayers)
-                {
-                    var s = player.ToString();
-                    sw.WriteLine(s);
-                }
-
-                sw.Close();
-                fs.Close();
+                Console.WriteLine("Произошла непредвиденная ошибка при обновлении LeaderBoard");
             }
-            else
+            finally
             {
-                // сюда мы попадаем, если оба игрока сыграли в ничью
-                for (var i = 0; i < lines.Length; i++)
+                // всё равно нужно закрыть все потоки
+                if (!(sw == null))
                 {
-                    var currentPlayer = lines[i].Split(' ');
-                    // 0 - имя
-                    // 1 - победы
-                    // 2 - всего игр
-                    if (currentPlayer[0].Equals(winnerName))
-                    {
-                        isWinnerInLb = false;
-                        allPlayers.Add(new Player(winnerName, Convert.ToInt16(currentPlayer[1]),
-                            Convert.ToInt16(currentPlayer[2]) + 1));
-                    }
-                    else if (currentPlayer[0].Equals(looserName))
-                    {
-                        isLoosingInLb = false;
-                        allPlayers.Add(new Player(looserName, Convert.ToInt16(currentPlayer[1]),
-                            Convert.ToInt16(currentPlayer[2]) + 1));
-                    }
-                    else
-                    {
-                        allPlayers.Add(new Player(looserName, Convert.ToInt16(currentPlayer[1]),
-                            Convert.ToInt16(currentPlayer[2])));
-                    }
+                    sw.Close();
                 }
 
-                // проверяем, был ли победитель среди считанных игроков
-                if (isWinnerInLb)
+                if (!(fs == null))
                 {
-                    // значит победителя нет в leaderBord
-                    allPlayers.Add(new Player(winnerName, 0, 1));
+                    fs.Close();
                 }
-
-                // проверяем был ли проигравший среди считанных игроков
-                if (isLoosingInLb)
-                {
-                    allPlayers.Add(new Player(looserName, 0, 1));
-                }
-
-
-                FileStream fs = new(PathToLeaderBord, FileMode.Create);
-                StreamWriter sw = new(fs, Encoding.Default);
-                foreach (var player in allPlayers)
-                {
-                    sw.WriteLine(player.ToString());
-                }
-
-                fs.Close();
-                sw.Close();
             }
         }
-        
-     
     }
 }

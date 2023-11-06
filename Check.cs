@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace RenjuCheckers
 {
@@ -45,12 +46,7 @@ namespace RenjuCheckers
         // данный метод вызывается, если игрок сделал ход и всё ещё не победил
         public static bool CheckDraw(Desk desk)
         {
-            if (desk.GetFilledCount() >= Math.Pow(((int) CharactericticsOfTheGame.DeskSize), 2))
-            {
-                return true;
-            }
-
-            return false;
+            return desk.GetFilledCount() >= Math.Pow(((int) CharactericticsOfTheGame.DeskSize), 2);
         }
 
         // проверка на победителя
@@ -113,11 +109,10 @@ namespace RenjuCheckers
             return false;
         }
 
-
         public static void CheckChoiceGetOrLoad(string s)
         {
             int choice = Convert.ToInt16(s);
-            if (choice < 1 || choice > 2)
+            if (!(choice >= 1 && choice <= 2))
             {
                 throw new ExceptionWithChoiceGetOrLoad();
             }
@@ -126,7 +121,7 @@ namespace RenjuCheckers
         public static void CheckLeaderBord(string answer)
         {
             int n = Convert.ToInt16(answer);
-            if (n < 1 || n > 2)
+            if (!(n >= 1 && n <= 2))
             {
                 throw new ExceptionWithAnswerFromLeaderBord();
             }

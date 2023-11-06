@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Security.AccessControl;
-using System.Text;
+﻿
+
+using System;
 
 namespace RenjuCheckers
 {
@@ -13,7 +8,8 @@ namespace RenjuCheckers
     {
         public static void Main(string[] args)
         {
-            var test = new CheckersRenju();
+            var path = Environment.CurrentDirectory; // получаем путь откуда открывают файл, это нужно для создания правильного пути к БД
+            var test = new CheckersRenju(path);
             test.Start();
         }
     }
