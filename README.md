@@ -39,22 +39,30 @@
 3) ***X = 1*** - символ, который используется для игрока, которые играет чёрными шашками
 4) ***Y = 2*** - символ, который используется для игрока, который играет белыми шашками
 ## *[public class ExceptionWithMove : Exception](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+### *Методы*
+1) ***public override string ToString()***. Выводит сообщение об ошибке.
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда игрок сделал неккоректный ход
 ## *[public class ExceptionWithSaveGame : Exception](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+### *Методы*
+1) ***public override string ToString()***. Выводит сообщение об ошибке.
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда  файл с сохранением - пустой
 ## *[public class ExceptionWithLeaderBord : Exception](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+### *Методы*
+1) ***public override string ToString()***. Выводит сообщение об ошибке.
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, когда файл с leaderBoard'ом - пустой
 ## *[public class ExceptionWithAnswerFromLeaderBord : Exception](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/CustomException.cs)* :white_check_mark:
+### *Методы*
+1) ***public override string ToString()***. Выводит сообщение об ошибке.
 Данный класс нужен для создания кастомного Exception, который мы обрабатываем, пользователь ввёл неккоретные данные при выборе - показаывать ли leaderBoard или же нет
 ## *[public class DAO](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/DAO.cs)* :white_check_mark:
-### *Поля*
-1) ***private const string PathToSave***. Поле, которое содержит путь к файлу с сохранениями.
-2) ***private const string PathToLeaderBord***. Поле, которое содержит путь к файлу с LeaderBord'ом.
 ### *Методы*
 1) ***public static void LoadGame(Dictionary<int, string> players, ref int currentMove, Desk desk)***. Метод, в котором происходит загрузка последнего сохранения в игре.
 2) ***public static void SaveGame(Dictionary<int, string> players, int currentMove, Desk desk)***. Метод, в котором происходит сохранение текущего состояния игры в файл.
 3) ***public static string GetLeaderBord()***. Метод, который читает данные из файла с LeaderBoard'ом.
 4) ***public static void UpdateLeaderBord(string winnerName, string looserName, bool winnerExists)***. Метод, в котором происходит обновления файла с LeaderBoard'ом.
+5) ***public string PathToSave { get; }***. Путь до файла с сохранением.
+6) ***public string PathToLeaderBord { get; }***. Путь до файла с LeaderBoar'ом.
+7) ***public DAO(string path)***. Конструктор, в котором передаётся путь до текущей директории, из которой открывается программа.
 ## *[public class Desk](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Desk.cs)* :white_check_mark:
 ### *Поля*
 1) ***private int _filledCount = 0***. Данное поле отвечает за количество заполненных ячеек на поле игры(нужно для подсчёты быстрого ничьи).
