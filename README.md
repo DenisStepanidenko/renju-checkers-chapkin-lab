@@ -19,9 +19,10 @@
 3) ***public const int WinningRowSize = (int) CharactericticsOfTheGame.WinningRowSize***. Количество подряд идущих шашек для победы
 4) ***private Desk _desk = new Desk(DeskSize)***. Объект класса Desk, которое эквивалентно шахматной доске для игры
 5) ***public int CurrentMove = 1***. Текущий ход игрока(1 - ходит игрок с чёрными шашками, 2 - ходит игрок с белыми шашками).
+6) ***private DAO _dao***. Объект класса DAO для работы с БД.
 ### *Методы*
 1) ***public override void Start()***. Метод, в котором прописана логика самой игры, порядок вызова методов других классов.
-2) ***public CheckersRenju()***. Конструктор данного класса.
+2) ***public CheckersRenju(string path)***. Конструктор данного класса. Path - путь до текущей директории, откуда вызывается программа.
 ## *[public class Check](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Check.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void CheckName(string s)***. Метод, в котором идёт проверка имени пользователя на корректность(имя не может быть пустым).
@@ -74,13 +75,14 @@
 3) ***public static void GetNewOrLoad(out int choice)***. Метод, который уведомляет пользователей о начале игры и предлагает выбор - выбрать сохранённую игры или начать новую.
 4) ***public static void GetMove(out int x, out int y, int currentMove, Dictionary<int, string> players, Desk desk)***. Метод, который уведомляет пользователей сделать текущий ход.
 5) ***public static void ShowBord(out int n)***. Метод, который уведомляет пользователей о том, хотят ли они увидеть LeaderBoard
+6) ***public static void LoadOrInitial(Dictionary<int, string> players, ref int currentMove, Desk desk, DAO dao)***. Метод, который вызывается вначале и предлагает пользователю либо загрузить, либо создать новую игру.
 ## *[public class Output](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Output.cs)* :white_check_mark:
 ### *Методы*
 1) ***public static void ShowDesk(Desk desk)***. Метод, который выводит поле на экран.
 2) ***public static void ShowRole(Dictionary<int, string> players)***. Метод, который выводит игрокам их цвета шашек после распределения.
 3) ***public static void ShowWinner(int currentMove, Dictionary<int, string> players)***. Метод, который выводит сообщение о победителе.
 4) ***public static void ShowDraw()***. Метод, который выводит сообщение о ничье.
-5) ***public static void ShowLeaderBord()***. Метод, который выводит LeaderBoard.
+5) ***public static void ShowLeaderBord(DAO dao)***. Метод, который выводит LeaderBoard.
 ## *[public class Player : IComparable](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Player.cs)* :white_check_mark:
 Данный класс нужен лишь для сортировки игроков в LeaderBoard по убыванию побед.
 ### *Поля*
@@ -101,4 +103,4 @@
 ### *Методы*
 1) ***public static void UpdateCurrentMove(ref int currentMove)***. Метод, который обновляет текущий ход( переменная currentMove всегда либо 1, либо 2).
 2) ***public static List<string> GetDeskRows(string[,] matrix)***. Метод, который возвращает все строки поля игры( нужна для записи игры в файл).
-
+3) ***public static void InitalGame(Dictionary<int, string> players)***. Метод, в котором происходит создание новой игры.
