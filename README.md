@@ -103,6 +103,8 @@
 3) ***public override string ToString()***. Метод, для вывода состояния объекта в текстовом виде.
 4) ***public int CompareTo(object o)***. Метод, в котором описана логика сравнения игроков, так чтобы они убывали по количество побед.
 ## *[internal class Program](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/Program.cs)* :white_check_mark:
+### *Методы*
+1) ***public static void Main(string[] args)***. Метод в котором создаётся объект класса RenjuCheckers и вызывается метод Start.
 Класс, в котором создаёт объект класса CheckersRenju и вызывается метод Start()
 ## *[public class RoleRandomizer](https://github.com/DenisStepanidenko/renju-checkers-chapkin-lab/blob/master/RoleRandomizer.cs)* :white_check_mark:
 ### *Методы*
